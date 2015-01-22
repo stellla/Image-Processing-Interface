@@ -462,7 +462,7 @@ namespace OperationPool
                   // if the last round:
                    if(counter == paths.Count)
                    {
-                       Debug.WriteLine("Debug1");
+                      // Debug.WriteLine("Debug1");
                         MessageBox.Show("Set was NOT found , Saving  new set");
                    }                
                    continue;
@@ -470,6 +470,8 @@ namespace OperationPool
                }
                 if(find == true)
                {
+                   cleanOpList(FindOPList);
+                    FindOPList.Clear();
                    MessageBox.Show("Set already exists ,processing...");
                    break;
                }
@@ -490,6 +492,11 @@ namespace OperationPool
             Button clickedButton = (Button)sender;
             deserializeByChosenFile();
             //deserializaAllFiles();
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
         }
 
     }

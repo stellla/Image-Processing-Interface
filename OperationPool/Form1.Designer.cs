@@ -202,6 +202,7 @@
             this.label7.Size = new System.Drawing.Size(106, 17);
             this.label7.TabIndex = 19;
             this.label7.Text = "Function List:";
+            this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // Ptype
             // 
