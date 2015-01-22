@@ -36,15 +36,15 @@ namespace OperationPool
         Operations FindOP;
         List<Operations> FindOPList = new List<Operations>();
         List<Parameters> FindParamsList = new List<Parameters>();
-
+       
 
         // file path for srialization:
-        static String path = @"C:\Users\StellaMel\Documents\Visual Studio 2013\Projects\OperationPool\OperationPool\bin\Debug\protobuf\Operation.proto.bin";
+        static String path = @"C:\Users\StellaMel\Documents\Visual Studio 2013\Projects\operationsPool1\OperationPool\bin\Debug\protobuf\Operation.proto.bin";
         List<string> paths = new List<string>();
         FileStream f;
         String fName = "";
         String newPath = "";
-        String DirectoryPath = @"C:\Users\StellaMel\Documents\Visual Studio 2013\Projects\OperationPool\OperationPool\bin\Debug\protobuf";
+        String DirectoryPath = @"C:\Users\StellaMel\Documents\Visual Studio 2013\Projects\operationsPool1\OperationPool\bin\Debug\protobuf";
         Boolean AddFunctionClicked;
 
 
@@ -97,6 +97,7 @@ namespace OperationPool
         }
         public void deserializaAllFiles()
         {
+
             //get path for folder 
             String DirectoryPath = @"C:\Users\StellaMel\Documents\Visual Studio 2013\Projects\OperationPool\OperationPool\bin\Debug\protobuf";
             int counter = 1;
