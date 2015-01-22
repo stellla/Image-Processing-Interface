@@ -38,7 +38,7 @@ namespace OperationPool
         List<Parameters> FindParamsList = new List<Parameters>();
        
 
-        // file path for srialization:
+        // file path for srialization of operations:
         static String path = @"C:\Users\StellaMel\Documents\Visual Studio 2013\Projects\operationsPool1\OperationPool\bin\Debug\protobuf\Operation.proto.bin";
         List<string> paths = new List<string>();
         FileStream f;
