@@ -32,7 +32,7 @@ namespace OperationPool
         string functionString = "";
 
 
-
+        // 
         Operations FindOP;
         List<Operations> FindOPList = new List<Operations>();
         List<Parameters> FindParamsList = new List<Parameters>();
@@ -95,6 +95,8 @@ namespace OperationPool
             }
             
         }
+
+        //function not in use
         public void deserializaAllFiles()
         {
 
