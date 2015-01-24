@@ -191,6 +191,7 @@
             this.textBox1.Size = new System.Drawing.Size(385, 215);
             this.textBox1.TabIndex = 17;
             this.textBox1.WordWrap = false;
+          //  this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label7
             // 
@@ -202,7 +203,6 @@
             this.label7.Size = new System.Drawing.Size(106, 17);
             this.label7.TabIndex = 19;
             this.label7.Text = "Function List:";
-            this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // Ptype
             // 
@@ -342,7 +342,7 @@
             this.LoadBtn.TabIndex = 21;
             this.LoadBtn.Text = "Load";
             this.LoadBtn.UseVisualStyleBackColor = true;
-            this.LoadBtn.Click += new System.EventHandler(this.button1_Click);
+            this.LoadBtn.Click += new System.EventHandler(this.LoadBtn_Click);
             // 
             // openFileDialog1
             // 
