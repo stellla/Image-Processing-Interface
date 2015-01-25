@@ -416,16 +416,20 @@ namespace OperationPool
 
 
 
-
+        /// <summary>
+        /// converts list of kind Operations to hashSet
+        /// </summary>
+        /// <param name="ListToConvert"></param>
+        /// <returns></returns>
         public HashSet<Operations>  ConvertListToHashSet(List<Operations> ListToConvert)
         {
-            HashSet<Operations> backList = new HashSet<Operations>();
+            HashSet<Operations> Set = new HashSet<Operations>();
 
             foreach (Operations op in ListToConvert)
             {
-                backList.Add(op);
+                Set.Add(op);
             }
-            return backList;
+            return Set;
         }
         /// <summary>
         ///mthod: gets two lists of functions set and returns result if they are equal or not.
