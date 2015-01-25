@@ -8,10 +8,10 @@ and get better  and ammidiate results.
 
 The main search algorithm is responsible for finding a matching set. Implementation is the next set of methods:
 
-DoItBtn_Click.cs,
-findObjectsInPath.cs,
-Comparisson.cs,
-ComparerEqualCount.cs
+DoItBtn_Click,
+findObjectsInPath,
+Comparisson,
+ComparerEqualCount
 
 loaction: Form.cs 
 
