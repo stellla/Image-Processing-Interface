@@ -24,29 +24,30 @@ namespace OperationPool
 
     public partial class Form1 : Form
     {
-
-
-        //**********************************initalization of variables ************************************************
+        //***********************************declarations of variables****************************************8
         List<Operations> OperationsList = new List<Operations>();// list of objects    
         List<string> OPlistParam = new List<string>();
         string line = "";
         List<Operations> BackOpList = new List<Operations>();
         string functionString = "";
 
+
+
         Operations FindOP;
         List<Operations> FindOPList = new List<Operations>();
         List<Parameters> FindParamsList = new List<Parameters>();
-       
-        // file path for srialization 
-        static String path = @"C:\Users\StellaMel\Documents\Visual Studio 2013\Projects\operationsPool1\OperationPool\bin\Debug\protobuf\Operation.proto.bin";
+
+
+        // file path for srialization:
+        static String path = @"C:\Users\StellaMel\Documents\Visual Studio 2013\Projects\OperationPool\OperationPool\bin\Debug\protobuf\Operation.proto.bin";
         List<string> paths = new List<string>();
         FileStream f;
         String fName = "";
         String newPath = "";
-        String DirectoryPath = @"C:\Users\StellaMel\Documents\Visual Studio 2013\Projects\operationsPool1\OperationPool\bin\Debug\protobuf";
+        String DirectoryPath = @"C:\Users\StellaMel\Documents\Visual Studio 2013\Projects\OperationPool\OperationPool\bin\Debug\protobuf";
         Boolean AddFunctionClicked;
 
-        //**************************************************************************************************************
+        //***********************************************************************************************************************
 
         public Form1()
         {
@@ -54,39 +55,42 @@ namespace OperationPool
             parameters_window.Visible = false;
         }
 
-       
         /// <summary>
         /// the method deserializes all operations from a chosen file and shows them in the operation list window
         /// </summary>
         public void deserializeByChosenFile()
-        {  
+        {
             FileStream chosenFile;
             DialogResult result = openFileDialog1.ShowDialog(); // Show the dialog.
-            List<Operations> chosenFileContent;
-            if (result == DialogResult.OK) //  dialog  opened successfully
+            List<Operations> backFile;
+            if (result == DialogResult.OK) // Test result.
             {
-                // take the file path
                 string file = openFileDialog1.FileName;
                 try
                 {
-                    string text = File.ReadAllText(file);                
+                    // take the file path
+                    string text = File.ReadAllText(file);
+
                     using (chosenFile = new FileStream(file, FileMode.Open))
                     {
-                        chosenFileContent = new List<Operations>();
+                        backFile = new List<Operations>();
                         Operations Op = null;
                         //deserialize file content
                         while ((Op = Serializer.DeserializeWithLengthPrefix<Operations>(chosenFile, PrefixStyle.Base128, 1)) != null)
                         {
                             //add deserialized operation to list
-                            chosenFileContent.Add(Op);
+                            backFile.Add(Op);
                         }
                     }
+
                     chosenFile.Close();
+
                     // pull file name from path
                     int from = file.LastIndexOf(".");
                     string fileName = file.Substring(from);
                     //Debug.WriteLine(fileName);
-                    ShowDataInTextBox(fileName, chosenFileContent);
+
+                    ShowDataInTextBox(fileName, backFile);
                     //PrintDataToConsole(backFile);
                     // Debug.WriteLine(file);
                 }
@@ -94,7 +98,8 @@ namespace OperationPool
                 {
                     MessageBox.Show("An erro accured whie opening file " + file);
                 }
-            }         
+            }
+
         }
 
 
@@ -103,9 +108,8 @@ namespace OperationPool
         /// </summary>
         public void deserializaAllFiles()
         {
-
             //get path for folder 
-            String DirectoryPath = @"C:\Users\StellaMel\Documents\Visual Studio 2013\Projects\operationsPool1\OperationPool\bin\Debug\protobuf";
+            String DirectoryPath = @"C:\Users\StellaMel\Documents\Visual Studio 2013\Projects\OperationPool\OperationPool\bin\Debug\protobuf";
             int counter = 1;
             List<Operations> back = null;
             //  for each file in the folder get path 
@@ -140,7 +144,7 @@ namespace OperationPool
         public void ShowDataInTextBox(string set, List<Operations> back)
         {
 
-            functionString += "\r\n" +"Set Loaded :"+ set + "\r\n";
+            functionString += "\r\n" + "Set Loaded :" + set + "\r\n";
             foreach (Operations op in back)
             {
                 functionString += op.language + " " + op.function_name + "(";
@@ -158,7 +162,6 @@ namespace OperationPool
         }
 
 
-
         /// <summary>
         ///load button: on click:deserializes all data in file and prints to console
         /// </summary>
@@ -171,7 +174,6 @@ namespace OperationPool
             //deserializaAllFiles();
         }
 
-        
         /// <summary>
         /// 
         /// </summary>
@@ -191,7 +193,6 @@ namespace OperationPool
             }
             return oper;
         }
-
 
         /// <summary>
         ///print deserialized data to console
@@ -231,7 +232,6 @@ namespace OperationPool
             AddParametersBtn.Enabled = true;
         }
 
-
         /// <summary>
         ///on click: adds function to a list. list of functions to save
         /// </summary>
@@ -269,27 +269,27 @@ namespace OperationPool
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void serialize_Click(object sender, EventArgs e)
-        { 
+        {
             //String fName = "";
             fName = fileName.Text;
             newPath = path + fName;
             f = File.Create(newPath);
             f.Close();
-            //int set = 1;
-           
+            int set = 1;
+
             using (f = new FileStream(newPath, FileMode.Open))
             {
-               // textBox1.Text += "\n\r\n\r Set to save number" + set + "\n\r";
+                textBox1.Text += "\n\r\n\r Set to save number" + set + "\n\r";
                 textBox1.Text += "\n\r\n\r\n";
-                
+
                 foreach (Operations op in FindOPList)
                 {
-                    Serializer.SerializeWithLengthPrefix(f, op, PrefixStyle.Base128, 1);                   
+                    Serializer.SerializeWithLengthPrefix(f, op, PrefixStyle.Base128, 1);
                 }
                 //f.Close();
             }
-          //  set++;
-          //  Debug.WriteLine("current set " + set);  
+            set++;
+            Debug.WriteLine("current set " + set);
             cleanOpList(FindOPList);
             FindOPList.Clear();
             f.Close();
@@ -305,7 +305,6 @@ namespace OperationPool
             AddParamsToOP();
         }
 
-
         /// <summary>
         ///on click: show added function in window lisBox 
         /// </summary>
@@ -319,10 +318,10 @@ namespace OperationPool
             {
                 textBox1.Text += "\r\n";
                 line += lan.SelectedItem.ToString() + "," + function_name.Text + " (";// +Pname.Text + Ptype.Text + Pvalue.Text;
-               // line += Pname.Text + " " + Ptype.Text + " " + Pvalue.Text + " ";
+                // line += Pname.Text + " " + Ptype.Text + " " + Pvalue.Text + " ";
                 line += Ptype.Text + " " + Pvalue.Text;
                 lan.Text = "";
-               /// lang.Text = "";
+                /// lang.Text = "";
                 function_name.Text = "";
                 Pname.Text = "";
                 Ptype.Text = "";
@@ -353,12 +352,11 @@ namespace OperationPool
             this.Close();
         }
 
-
         /// <summary>
         ///done adding parameters to function
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="e"></param>      
         private void DoneBtn_Click(object sender, EventArgs e)
         {
             Button clickedButton = (Button)sender;
@@ -369,20 +367,22 @@ namespace OperationPool
 
         }
 
+
+
+
         /// <summary>
         ///finds function in data: if found "calculates" it if not found serializes it 
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="e"></param>     
         private void DoItBtn_Click(object sender, EventArgs e)
         {
             Button clickedButton = (Button)sender;
-            //Debug.WriteLine("list of op to find:");
-           // PrintDataToConsole(FindOPList);
+            Debug.WriteLine("list of op to find:");
+            PrintDataToConsole(FindOPList);
             findObjectsInPath(paths);
 
         }
-
 
         /// <summary>
         ///add new parameter to function
@@ -392,6 +392,7 @@ namespace OperationPool
             Parameters NewParams = new Parameters(Pname.Text, Ptype.Text, Pvalue.Text);
             FindOP.parameters.Add(NewParams);
         }
+
 
         /// <summary>
         /// 
@@ -404,36 +405,14 @@ namespace OperationPool
             Boolean found = false;
             if (FindOPList.Count == BackOpList.Count)
             {
-               found =  ComparerEqualCount(BackOpList, FindOPList);
-               if (found == true)
-                   return true;
-               else return false;
+                found = ComparerEqualCount(BackOpList, FindOPList);
+                if (found == true)
+                    return true;
+                else return false;
             }
             return false;
         }
 
-
-        /// <summary>
-        ///method: converts list to hash set
-        ///input: list
-        ///output: hash set
-        /// </summary>
-        /// <param name="ListToConvert"></param>
-        /// <returns></returns>
-        public HashSet<Operations> convertListToHAshSet(List<Operations> ListToConvert)
-        {
-            HashSet<Operations> List = new HashSet<Operations>();
-
-            foreach (Operations op in BackOpList)
-            {
-                List.Add(op);
-            }
-
-            return List;
-        }
-
-
-       
         /// <summary>
         ///mthod: gets two lists of functions set and returns result if they are equal or not.
         /// BackOpList contains operations pulled from saved data
@@ -447,56 +426,65 @@ namespace OperationPool
         /// <returns></returns>
         public Boolean ComparerEqualCount(List<Operations> BackOpList, List<Operations> FindOPList)
         {
-            HashSet<Operations> findList = new HashSet<Operations>();
-            HashSet<Operations> backList = new HashSet<Operations>();
+
             //convert from list to hash set
-             backList = convertListToHAshSet(BackOpList);
-             findList = convertListToHAshSet(FindOPList);
+            HashSet<Operations> backList = new HashSet<Operations>();
 
-            int i, k;
+            foreach (Operations op in BackOpList)
+            {
+                backList.Add(op);
+            }
 
+            //convert from list to hash set
+            HashSet<Operations> findList = new HashSet<Operations>();
+            foreach (Operations op in FindOPList)
+            {
+                findList.Add(op);
+            }
+            int i;
+            int k;
             // boolean array, will contain true or false for each operation overview in backList against findList
             Boolean[] opFound = new Boolean[backList.Count];
-
 
             //main loop, goes over the hashSets: findList ,backList
             for (i = 0; i < findList.Count; i++)
             {
                 //case: attributes name or language dont match
-                if (!findList.ElementAt(i).language.Equals(backList.ElementAt(i).language) || !findList.ElementAt(i).function_name.Equals(backList.ElementAt(i).function_name))        
-                    opFound[i] = false;              
-            
+                if (!findList.ElementAt(i).language.Equals(backList.ElementAt(i).language) || !findList.ElementAt(i).function_name.Equals(backList.ElementAt(i).function_name))
+                    opFound[i] = false;
+
                 // name and language attributes match
-                if(findList.ElementAt(i).language.Equals(backList.ElementAt(i).language) && findList.ElementAt(i).language.Equals(backList.ElementAt(i).language))
+                if (findList.ElementAt(i).language.Equals(backList.ElementAt(i).language) && findList.ElementAt(i).language.Equals(backList.ElementAt(i).language))
                 {
-                    // if lists sizes of parameters are equal on both operations
+                    // if lists sizes of parameters match on both operations
                     if (findList.ElementAt(i).parameters.Count == backList.ElementAt(i).parameters.Count)
                     {
-                        // boolean array for parameters. will contain true or false for each param overview 
-                        Boolean[] Paramfound = new Boolean[findList.ElementAt(i).parameters.Count];
+                        // boolean array for parameters. will contain true or false for each param overview
+                        Boolean[] Pfound = new Boolean[findList.ElementAt(i).parameters.Count];
                         //run through the params lists
                         for (k = 0; k < findList.ElementAt(i).parameters.Count; k++)
                         {
-                            //compare all attributes of a parameter
                             if (findList.ElementAt(i).parameters.ElementAt(k).name.Equals(backList.ElementAt(i).parameters.ElementAt(k).name) &&
                                 findList.ElementAt(i).parameters.ElementAt(k).type.Equals(backList.ElementAt(i).parameters.ElementAt(k).type) &&
                                 findList.ElementAt(i).parameters.ElementAt(k).val.Equals(backList.ElementAt(i).parameters.ElementAt(k).val)
                                 )
                                 // all attributes match--> the param is a match
-                                Paramfound[k] = true;
-      
+                                Pfound[k] = true;
+
                             else // one or more attributes does not match
-                                Paramfound[k] = false;  
+                                Pfound[k] = false;
                         }
-                        // check params array : if all cells are true the op matches, else the op doesnt match
-                        for (int p = 0; p < Paramfound.Length; p++)
+                        /// check params array : if all cells are true the op matches else the op doesnt match
+                        for (int p = 0; p < Pfound.Length; p++)
                         {
-                            if (Paramfound[p] == false)
+                            if (Pfound[p] == false)
                             {
+                                // op not equals
                                 opFound[i] = false;
                                 break;
                             }
-                            else opFound[i] = true; 
+                            // op equals
+                            else opFound[i] = true;
                         }
                     }
                     // operations parms list size different
@@ -506,15 +494,18 @@ namespace OperationPool
                         {
                             opFound[i] = false;
                         }
-                    }              
+                    }
                 }
             }
-           Boolean find =  checkFound(opFound);
-           if (find == true)
-               return true;
-           else 
-               return false;         
-}
+            Boolean find = checkFound(opFound);
+            if (find == true)
+                return true;
+            else
+                return false;
+
+
+        }
+
 
         /// <summary>
         /// check the boolean array of operations. if all cells are true - set of operations is a match
@@ -523,75 +514,89 @@ namespace OperationPool
         /// <returns></returns>
         public Boolean checkFound(Boolean[] opFound)
         {
-            for(int i = 0; i<opFound.Length ; i++)
+            for (int i = 0; i < opFound.Length; i++)
             {
                 if (opFound[i] == false)
-                   continue;                
+                    continue;
                 else if (opFound[i] == true)
-                    return true;                  
+                    return true;
             }
             return false;
         }
 
-
-       
         /// <summary>
         /// gets all data from files. for each file deserialises and calls Comparisson method to find (or not)
-        // a match
+        /// a match
         /// </summary>
         /// <param name="paths"></param> list of all paths of saved files
         public void findObjectsInPath(List<string> paths)
-        {          
-            List<Operations> BackOpList = new List<Operations>();
+        {
 
+            List<Operations> BackOpList = new List<Operations>();
             // for each file in the folder get path 
             foreach (var path in Directory.GetFiles(DirectoryPath))
                 paths.Add(path);
-
+            //foreach (string p in paths)
+            //Debug.WriteLine(p);
             int counter = 0;
             foreach (string pat in paths)
             {
-                //1.deserialize    
+                //1.deserialize
+
                 using (f = new FileStream(pat, FileMode.Open))
                 {
                     Operations BackOp = null;
                     while ((BackOp = Serializer.DeserializeWithLengthPrefix<Operations>(f, PrefixStyle.Base128, 1)) != null)
                     {
                         BackOpList.Add(BackOp);// list of deserialized operations      
+                        //Comparisson(BackOpList, FindOPList);
                     }
-                }
-                counter++; 
-                //2. compare lists
-               Boolean find =   Comparisson(BackOpList, FindOPList);
-               if (find == false)
-               {
-                   cleanOpList(BackOpList);
-                   BackOpList.Clear();
-                   //if the last file is checked: return message 
-                   if(counter == paths.Count)
-                   {
-                        MessageBox.Show("Set was NOT found , Saving  new set");
-                   }                
-                   continue;
 
-               }
-                if(find == true)
-               {
-                   cleanOpList(FindOPList);
+                }
+                counter++;
+                Boolean find = Comparisson(BackOpList, FindOPList);
+                if (find == false)
+                {
+                    cleanOpList(BackOpList);
+                    BackOpList.Clear();
+                    // if the last round:
+                    if (counter == paths.Count)
+                    {
+                        // Debug.WriteLine("Debug1");
+                        MessageBox.Show("Set was NOT found , Saving  new set");
+                    }
+                    continue;
+
+                }
+                if (find == true)
+                {
+                    cleanOpList(FindOPList);
                     FindOPList.Clear();
-                   MessageBox.Show("Set already exists ,processing...");
-                   // if found stop serching
-                   break;
-               }
+                    MessageBox.Show("Set already exists ,processing...");
+                    break;
+                }
+
             }
         }
 
         public void cleanOpList(List<Operations> FindOPList)
         {
-            foreach(Operations op in FindOPList)
+            foreach (Operations op in FindOPList)
             {
                 op.parameters.Clear();
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+           // Button clickedButton = (Button)sender;
+           // deserializeByChosenFile();
+            //deserializaAllFiles();
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
         }
 
     }
