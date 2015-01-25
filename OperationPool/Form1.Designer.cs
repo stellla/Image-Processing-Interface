@@ -191,7 +191,6 @@
             this.textBox1.Size = new System.Drawing.Size(385, 215);
             this.textBox1.TabIndex = 17;
             this.textBox1.WordWrap = false;
-          //  this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label7
             // 
@@ -354,7 +353,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Lavender;
-            this.BackgroundImage = global::OperationPool.Properties.Resources._022895547_prevstill;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(741, 503);
             this.Controls.Add(this.LoadBtn);
