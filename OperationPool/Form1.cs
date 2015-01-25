@@ -414,6 +414,19 @@ namespace OperationPool
             return false;
         }
 
+
+
+
+        public HashSet<Operations>  ConvertListToHashSet(List<Operations> ListToConvert)
+        {
+            HashSet<Operations> backList = new HashSet<Operations>();
+
+            foreach (Operations op in ListToConvert)
+            {
+                backList.Add(op);
+            }
+            return backList;
+        }
         /// <summary>
         ///mthod: gets two lists of functions set and returns result if they are equal or not.
         /// BackOpList contains operations pulled from saved data
@@ -429,45 +442,50 @@ namespace OperationPool
         {
 
             //convert from list to hash set
-            HashSet<Operations> backList = new HashSet<Operations>();
+            HashSet<Operations> backSet = new HashSet<Operations>();
+            backSet = ConvertListToHashSet(BackOpList);
+            HashSet<Operations> findSet = new HashSet<Operations>();
+            findSet = ConvertListToHashSet(FindOPList);
 
-            foreach (Operations op in BackOpList)
-            {
-                backList.Add(op);
-            }
+            //foreach (Operations op in BackOpList)
+            //{
+            //    backList.Add(op);
+            //}
 
-            //convert from list to hash set
-            HashSet<Operations> findList = new HashSet<Operations>();
-            foreach (Operations op in FindOPList)
-            {
-                findList.Add(op);
-            }
+
+            //foreach (Operations op in FindOPList)
+            //{
+            //    findList.Add(op);
+            //}
+
+
+
             int i;
             int k;
             // boolean array, will contain true or false for each operation overview in backList against findList
-            Boolean[] opFound = new Boolean[backList.Count];
+            Boolean[] opFound = new Boolean[backSet.Count];
 
             //main loop, goes over the hashSets: findList ,backList
-            for (i = 0; i < findList.Count; i++)
+            for (i = 0; i < findSet.Count; i++)
             {
                 //case: attributes name or language dont match
-                if (!findList.ElementAt(i).language.Equals(backList.ElementAt(i).language) || !findList.ElementAt(i).function_name.Equals(backList.ElementAt(i).function_name))
+                if (!findSet.ElementAt(i).language.Equals(backSet.ElementAt(i).language) || !findSet.ElementAt(i).function_name.Equals(backSet.ElementAt(i).function_name))
                     opFound[i] = false;
 
                 // name and language attributes match
-                if (findList.ElementAt(i).language.Equals(backList.ElementAt(i).language) && findList.ElementAt(i).language.Equals(backList.ElementAt(i).language))
+                if (findSet.ElementAt(i).language.Equals(backSet.ElementAt(i).language) && findSet.ElementAt(i).language.Equals(backSet.ElementAt(i).language))
                 {
                     // if lists sizes of parameters match on both operations
-                    if (findList.ElementAt(i).parameters.Count == backList.ElementAt(i).parameters.Count)
+                    if (findSet.ElementAt(i).parameters.Count == backSet.ElementAt(i).parameters.Count)
                     {
                         // boolean array for parameters. will contain true or false for each param overview
-                        Boolean[] Pfound = new Boolean[findList.ElementAt(i).parameters.Count];
+                        Boolean[] Pfound = new Boolean[findSet.ElementAt(i).parameters.Count];
                         //run through the params lists
-                        for (k = 0; k < findList.ElementAt(i).parameters.Count; k++)
+                        for (k = 0; k < findSet.ElementAt(i).parameters.Count; k++)
                         {
-                            if (findList.ElementAt(i).parameters.ElementAt(k).name.Equals(backList.ElementAt(i).parameters.ElementAt(k).name) &&
-                                findList.ElementAt(i).parameters.ElementAt(k).type.Equals(backList.ElementAt(i).parameters.ElementAt(k).type) &&
-                                findList.ElementAt(i).parameters.ElementAt(k).val.Equals(backList.ElementAt(i).parameters.ElementAt(k).val)
+                            if (findSet.ElementAt(i).parameters.ElementAt(k).name.Equals(backSet.ElementAt(i).parameters.ElementAt(k).name) &&
+                                findSet.ElementAt(i).parameters.ElementAt(k).type.Equals(backSet.ElementAt(i).parameters.ElementAt(k).type) &&
+                                findSet.ElementAt(i).parameters.ElementAt(k).val.Equals(backSet.ElementAt(i).parameters.ElementAt(k).val)
                                 )
                                 // all attributes match--> the param is a match
                                 Pfound[k] = true;
@@ -489,9 +507,9 @@ namespace OperationPool
                         }
                     }
                     // operations parms list size different
-                    if (findList.ElementAt(i).parameters.Count != backList.ElementAt(i).parameters.Count)
+                    if (findSet.ElementAt(i).parameters.Count != backSet.ElementAt(i).parameters.Count)
                     {
-                        for (k = 0; k < findList.ElementAt(i).parameters.Count; k++)
+                        for (k = 0; k < findSet.ElementAt(i).parameters.Count; k++)
                         {
                             opFound[i] = false;
                         }
@@ -578,6 +596,7 @@ namespace OperationPool
                 }
 
             }
+        //    PrintDataToConsole(FindOPList);
         }
 
         public void cleanOpList(List<Operations> FindOPList)
@@ -588,17 +607,7 @@ namespace OperationPool
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-           // Button clickedButton = (Button)sender;
-           // deserializeByChosenFile();
-            //deserializaAllFiles();
-        }
 
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
 
     }
 }
