@@ -47,7 +47,7 @@ namespace OperationPool
         String DirectoryPath = @"C:\Users\StellaMel\Documents\Visual Studio 2013\Projects\OperationPool\OperationPool\bin\Debug\protobuf";
         Boolean AddFunctionClicked;
 
-        //***********************************************************************************************************************
+        //************************************************************************************************************************
 
         public Form1()
         {
