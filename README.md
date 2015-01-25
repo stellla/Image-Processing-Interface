@@ -6,15 +6,16 @@ and get better  and ammidiate results.
 
 ##Code Example:
 
-The main search algorithm is the next set of methods:
+The main search algorithm is responsible for finding a matching set and implemented in the next set of methods:
 
 DoItBtn_Click.cs,
 findObjectsInPath.cs,
-Comparisson.cs
+Comparisson.cs,
+ComparerEqualCount.cs
 
 loaction: Form.cs 
 
-responsible for finding a matching set.
+
  
 
 
