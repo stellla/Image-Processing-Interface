@@ -8,8 +8,8 @@ and get better  and ammidiate results.
 
 The main search algorithm is the next set of methods:
 
-DoItBtn_Click.cs
-findObjectsInPath.cs
+DoItBtn_Click.cs,
+findObjectsInPath.cs,
 Comparisson.cs
 
 loaction: Form.cs 
