@@ -13,4 +13,4 @@ findObjectsInPath,
 Comparisson,
 ComparerEqualCount
 
-loaction: Form.cs 
+loaction: OperationsPool ,Form.cs 
