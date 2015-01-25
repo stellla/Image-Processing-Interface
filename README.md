@@ -6,7 +6,7 @@ and get better  and ammidiate results.
 
 ##Code Example:
 
-The main search algorithm is responsible for finding a matching set and implemented in the next set of methods:
+The main search algorithm is responsible for finding a matching set. Implementation is the next set of methods:
 
 DoItBtn_Click.cs,
 findObjectsInPath.cs,
